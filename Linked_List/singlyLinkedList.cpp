@@ -35,14 +35,6 @@ void InsertAtTail(Node* &head,Node* &tail ,int data){
     }
 }
 
-void ListSize(Node* head){
-    int counter =0;
-    while(head!=NULL){
-        counter+=1;
-        head=head->next;
-    }
-    cout<<counter<<endl;
-}
 
 void InsertAtTailUsingTailPointer(Node* &tail, int data)
 {
@@ -51,6 +43,31 @@ void InsertAtTailUsingTailPointer(Node* &tail, int data)
     tail=tail->next;
 }
 
+void InsertAtPosition(Node* &head,int pos,int data){
+    Node* temp= head;
+    int counter=1;
+    while(counter<pos-1){
+        temp=temp->next;
+        counter++;
+    }
+    Node* N_Node = new Node(data);
+    if (pos == 1){
+        N_Node->next=temp;
+        head=N_Node;
+    }else{
+        N_Node->next=temp->next;
+        temp->next=N_Node;
+    }
+}
+
+void ListSize(Node* head){
+    int counter =0;
+    while(head!=NULL){
+        counter+=1;
+        head=head->next;
+    }
+    cout<<counter<<endl;
+}
 void print(Node* &head){
     Node* temp = head;
     while(temp!=NULL){
@@ -72,5 +89,7 @@ int main(){
     InsertAtTailUsingTailPointer(tail,65);//55 is not added as the tail is not updated in the previous line
     print(head);
     ListSize(head);
+    InsertAtPosition(head,1,54);
+    print(head);
     return 0;
 }
