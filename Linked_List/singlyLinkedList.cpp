@@ -26,6 +26,7 @@ void InsertAtTail(Node* &head,Node* &tail ,int data){
     if(head==NULL){
         temp->next=head;
         head=temp;
+        tail=temp;
     }else{
         while(last->next!=NULL){
             last=last->next;
@@ -42,7 +43,7 @@ void InsertAtTailUsingTailPointer(Node* &tail, int data)
     tail->next=temp;
     tail=tail->next;
 }
-
+//if we want to add at the tail, then tail pointer also be updated(it is not added here(just pass the tail pointer and if pos=listsize()+1 then call the InsertAtTail()));
 void InsertAtPosition(Node* &head,int pos,int data){
     Node* temp= head;
     int counter=1;
@@ -89,7 +90,7 @@ int main(){
     InsertAtTailUsingTailPointer(tail,65);//55 is not added as the tail is not updated in the previous line
     print(head);
     ListSize(head);
-    InsertAtPosition(head,1,54);
+    InsertAtPosition(head,9,54);
     print(head);
     return 0;
 }
