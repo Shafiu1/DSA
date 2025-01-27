@@ -50,6 +50,40 @@ void print(Node* tail){
     }
     cout<<endl;
 }
+
+void deleteNode(Node* &tail,int value){
+    if(tail==NULL){
+        cout<<"This list is an empty list.So, no need to delete the element";
+        return;
+    }
+    else if(tail->next==tail){
+        Node* curr= tail;
+        tail=NULL;
+        curr->next=NULL;
+        delete curr;
+        cout<<"Last element deleted"<<endl;
+        return;
+    }else{
+        Node *prev = tail;
+        Node *curr = tail->next;
+        // Node* repeat_check=curr;
+        while(curr->data!=value){
+            prev=curr;
+            curr=curr->next;
+            // if (prev == repeat_check)
+            // {
+            //     cout << "The element is not in the list";
+            //     return;
+            // }
+        }
+        prev->next=curr->next;
+        if(curr==tail){
+            tail=curr->next;
+        }
+        curr->next=NULL;
+        delete curr;
+    }
+}
 int main() {
     Node* tail=NULL;
     insertNode(tail,4,5);//At first node element has no value..it will be skiped.
@@ -58,5 +92,17 @@ int main() {
     insertNode(tail,10,15);
     insertNode(tail,15,20);
     print(tail);
+    // deleteNode(tail,5);
+    // print(tail);
+    // // deleteNode(tail,51);
+    // // print(tail);
+    // deleteNode(tail,10);
+    // print(tail);
+    // deleteNode(tail,15);
+    // print(tail);
+    deleteNode(tail,10);
+    print(tail);
+    // deleteNode(tail,20);
+    // print(tail);
     return 0;
 }
