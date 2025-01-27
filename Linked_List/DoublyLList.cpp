@@ -20,8 +20,26 @@ void print(Node* head){
     }
     cout<<endl;
 }
+int getLength(Node *head)
+{
+    int cnt = 0;
+    Node *temp = head;
+    while (temp != NULL)
+    {
+        cnt++;
+        temp = temp->next;
+    }
+    return cnt;
+}
 
-
+//insert at head..
+void insertAtHead(Node *&head, int data)
+{
+    Node *temp = new Node(data);
+    temp->next = head;
+    head->prev = temp;
+    head = temp;
+}
 //insert at tail
 void insertAtTail(Node* &tail, int data){
     Node* temp= new Node(data);
@@ -30,24 +48,32 @@ void insertAtTail(Node* &tail, int data){
     tail=temp;
 }
 
-
+void insertAtPos(Node* &head,Node* &tail,int position, int data){
+    if(position==1){
+        insertAtHead(head,data);
+        return;
+    }
+    if(position>getLength(head)){
+        insertAtTail(tail,data);
+        return;
+    }
+    Node *temp = head;
+    int cnt = 1;
+    while (cnt < position - 1)
+    {
+        temp = temp->next;
+        cnt++;
+    }
+    Node* nodeToInsert= new Node(data);
+    nodeToInsert->next=temp->next;
+    nodeToInsert->prev=temp;
+    temp->next->prev=nodeToInsert;
+    temp->next=nodeToInsert;
+}
 
 //length of doubly linked list.. 
-int getLength(Node* head){
-    int cnt=0;
-    Node* temp = head;
-    while(temp!=NULL){
-        cnt++;
-        temp=temp->next;
-    }
-    return cnt;
-}
-void insertAtHead(Node* &head,int data){
-    Node* temp = new Node(data);
-    temp->next=head;
-    head->prev=temp;
-    head=temp;
-}
+
+
 int main(){
     Node* node1= new Node(11);
     Node* head=node1;
@@ -62,5 +88,12 @@ int main(){
     print(head);
     insertAtTail(tail,66);
     print(head);
-    cout<<tail->data<<endl;
+    // cout<<tail->data<<endl;
+
+    insertAtPos(head,tail,7,77);
+    print(head);
+    insertAtPos(head,tail,1,88);
+    print(head);
+    insertAtPos(head,tail,3,99);
+    print(head);
 }
