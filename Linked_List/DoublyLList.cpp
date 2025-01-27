@@ -11,6 +11,15 @@ class Node{
         this->next=NULL;
         this->prev=NULL;
     }
+    ~Node(){
+        int val = this->data;
+        if(next!=NULL){
+            cout<<"Kire"<<endl;
+            delete next;
+            next=NULL;
+        }
+        cout<<"memory free for with node data: "<<val<<endl;
+    }
 };
 void print(Node* head){
     Node* temp = head;
@@ -33,16 +42,27 @@ int getLength(Node *head)
 }
 
 //insert at head..
-void insertAtHead(Node *&head, int data)
+void insertAtHead(Node* &head, Node* &tail,int data)
 {
     Node *temp = new Node(data);
+    if(head==NULL){
+        head=temp;
+        tail=temp;
+        return;
+    }
     temp->next = head;
     head->prev = temp;
     head = temp;
 }
 //insert at tail
-void insertAtTail(Node* &tail, int data){
+void insertAtTail(Node* &head,Node* &tail, int data){
+    
     Node* temp= new Node(data);
+    if (tail == NULL){
+        tail=temp;
+        head=temp;
+        return;
+    }
     tail->next=temp;
     temp->prev=tail;
     tail=temp;
@@ -50,11 +70,11 @@ void insertAtTail(Node* &tail, int data){
 
 void insertAtPos(Node* &head,Node* &tail,int position, int data){
     if(position==1){
-        insertAtHead(head,data);
+        insertAtHead(head,tail,data);
         return;
     }
     if(position>getLength(head)){
-        insertAtTail(tail,data);
+        insertAtTail(head,tail,data);
         return;
     }
     Node *temp = head;
@@ -71,29 +91,64 @@ void insertAtPos(Node* &head,Node* &tail,int position, int data){
     temp->next=nodeToInsert;
 }
 
-//length of doubly linked list.. 
+void deleteAtHead(Node* &head,Node* &tail){
+    if(head==NULL){
+        cout<<"The list is empty"<<endl;
+        return;
+    }
+    else if(head==tail){
+        Node* temp=head;
+        head=NULL;
+        tail==NULL;
+        delete temp;
+    }else{
+        Node* temp =head;
+        head=head->next;
+        head->prev=NULL;
+        temp->next=NULL;//Don't know if it is necessary or not..
+        delete temp;
+    }
+}
 
 
 int main(){
-    Node* node1= new Node(11);
-    Node* head=node1;
-    Node* tail=node1;
-    print(head);
-    cout<<getLength(head)<<endl;
+    // Node* node1= new Node(11);
+    Node* head=NULL;
+    Node* tail=NULL;
+    // print(head);
+    // cout<<getLength(head)<<endl;
     // cout<<(*head).next<<endl;
-    insertAtHead(head,22);
-    insertAtHead(head,33);
-    insertAtHead(head,44);
-    insertAtHead(head,55);
+    insertAtHead(head,tail,22);
+    cout<<"head-->"<<head->data<<endl;
+    cout<<"tail-->"<<tail->data<<endl;
+    insertAtHead(head,tail,33);
+    cout<<"head-->"<<head->data<<endl;
+    cout<<"tail-->"<<tail->data<<endl;
+    insertAtHead(head,tail,44);
+    cout<<"head-->"<<head->data<<endl;
+    cout<<"tail-->"<<tail->data<<endl;
+    insertAtHead(head,tail,55);
+    cout<<"head-->"<<head->data<<endl;
+    cout<<"tail-->"<<tail->data<<endl;
     print(head);
-    insertAtTail(tail,66);
+    insertAtTail(head,tail,66);
+    cout<<"head-->"<<head->data<<endl;
+    cout<<"tail-->"<<tail->data<<endl;
     print(head);
     // cout<<tail->data<<endl;
 
     insertAtPos(head,tail,7,77);
+    cout<<"head-->"<<head->data<<endl;
+    cout<<"tail-->"<<tail->data<<endl;
     print(head);
     insertAtPos(head,tail,1,88);
+    cout<<"head-->"<<head->data<<endl;
+    cout<<"tail-->"<<tail->data<<endl;
     print(head);
     insertAtPos(head,tail,3,99);
+    cout<<"head-->"<<head->data<<endl;
+    cout<<"tail-->"<<tail->data<<endl;
+    print(head);
+    deleteAtHead(head,tail);
     print(head);
 }
