@@ -2,7 +2,10 @@
 using namespace std;
 
 int main() {
-    int n=15;
-    cout<<(-1%2);// Your code here
+    int t;
+    cin>>t;
+    while(t--){
+        
+    }
     return 0;
 }

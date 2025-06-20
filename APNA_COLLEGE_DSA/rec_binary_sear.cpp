@@ -2,7 +2,6 @@
 using namespace std;
 
 int main() {
-    int n=15;
-    cout<<(-1%2);// Your code here
+     // Your code here
     return 0;
 }
